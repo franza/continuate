@@ -6,7 +6,7 @@ A wrapper to convert regular functions to continuation-passing style.
 Description
 -----------
 
-To avoid callback hell you usually work with modules like `async` and its methods. Assume that you have a pretty complex function built upon `async#auto`. Here we read two data sources and pass data to data-handlers. If data-handlers are pretty complex we need to wrap them in `try/catch`:
+To avoid callback hell you usually work with modules like `async` and its methods. Assume that you have a pretty complex function built upon `async#auto` or `async#parallel`, whatever. Here we read two data sources and pass data to data-handlers. If data-handlers are pretty complex we need to wrap them in `try/catch`:
 
 ```javascript
 var async = require('async');
@@ -45,7 +45,7 @@ async.auto({
 });
 ```
 
-Here we can see that code is not DRY and looks pretty ugly. Instead we can rewrite handling of data in prettier way:
+Here we can see that code is not DRY and looks pretty ugly. Instead we can rewrite handling of data in prettier way using `continuate` module. It contains a bunch of utility functions you can use to easily convert regualr functions to continuation-passing style (CSP):
 
 ```javascript
 var async = require('async');
@@ -74,6 +74,8 @@ async.auto({
 ```
 
 And we have neat and descriptive logic without changing original `handleData1` and `handleData2` functions so we can reuse them in regular and CSP-code.
+
+Note, that when you use CSP, functions doesn't become 'asynchronous'. They just provide their results in callbacks.
 
 \#bind
 -----
