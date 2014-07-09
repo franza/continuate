@@ -1,0 +1,29 @@
+{
+  "name": "continuate",
+  "version": "0.0.1",
+  "description": "A wrapper to convert regular functions to continuation-passing style.",
+  "main": "index.js",
+  "scripts": {
+    "test": "???"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/franza/continuate"
+  },
+  "keywords": [
+    "CSP",
+    "continuation-passing",
+    "style",
+    "async",
+    "callback"
+  ],
+  "author": "franza",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/franza/continuate/issues"
+  },
+  "homepage": "https://github.com/franza/continuate",
+  "devDependencies": {
+    "mocha": "^1.20.1"
+  }
+}
