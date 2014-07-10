@@ -6,7 +6,7 @@ A wrapper to convert regular functions to continuation-passing style.
 Description
 -----------
 
-To avoid callback hell you usually work with modules like `async` and its methods. Assume that you have a pretty complex function built upon `async#auto` or `async#parallel`, whatever. Here we read two data sources and pass data to data-handlers. If data-handlers are pretty complex we need to wrap them in `try/catch`:
+To avoid callback hell you usually work with modules like `async` and its methods. Assume that you have a pretty complex function built upon `async#auto` or `async#parallel`, whatever. Here we read two data sources and pass data to data-handlers. If data-handlers are pretty complex we will eventually want them to be wrapped in `try/catch` to avoid sudden failing of our app:
 
 ```javascript
 var async = require('async');
@@ -45,7 +45,9 @@ async.auto({
 });
 ```
 
-Here we can see that code is not DRY and looks pretty ugly. Instead we can rewrite handling of data in prettier way using `continuate` module. It contains a bunch of utility functions you can use to easily convert regualr functions to continuation-passing style (CSP):
+Here we can see that code is not DRY and looks pretty ugly. We can rewrite those handler in continuation-passing style (CSP) right away but imaging situation when you need those handlers as a regular functions, say in synchronous code. You will not want additional callback level in your neat synchronous code.
+
+Instead we can rewrite handling of data in prettier way using `continuate` module. It contains a bunch of utility functions you can use to easily convert regualr functions to CSP:
 
 ```javascript
 var async = require('async');
@@ -66,8 +68,8 @@ async.auto({
     cspStyle_handleData1(results.dataSource1, callback);
   }],
   'actionsWithData2': ['dataSource2', function (callback, results) {
-    var cspStyle_handleData2 = cps(handleData2).bind();
-    cspStyle_handleData2(results.dataSource2, callback);
+    //You can call handleData2 in CSP right away without creating new functions
+    cps(handleData2).call(null, results.dataSource2, callback);
   }],
 });
 
