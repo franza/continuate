@@ -1,3 +1,4 @@
 .gitignore
 test.js
 node_modules
+.travis.yml
