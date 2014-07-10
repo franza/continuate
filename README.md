@@ -1,6 +1,8 @@
 continuate
 ==========
 
+[![Build Status](https://travis-ci.org/franza/continuate.svg?branch=master)](https://travis-ci.org/franza/continuate)
+
 A wrapper to convert regular functions to continuation-passing style.
 
 Description
