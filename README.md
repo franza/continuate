@@ -63,13 +63,12 @@ async.auto({
     getDataFromWebService(callback);
   }],
   'actionsWithData1': ['dataSource1', function (callback, results) {
-    var cpsStyle_handleData1 = cps(handleData1).bind();
+    var cpsStyle_handleData1 = cps(handleData1);
     //Now it provides error and result in the callback
     cpsStyle_handleData1(results.dataSource1, callback);
   }],
   'actionsWithData2': ['dataSource2', function (callback, results) {
-    //You can call handleData2 in CPS right away without creating new functions
-    cps(handleData2).call(null, results.dataSource2, callback);
+    cps(handleData2)(results.dataSource2, callback);
   }],
 });
 
@@ -79,22 +78,20 @@ And we have neat and descriptive logic without changing original `handleData1` a
 
 Note, that when you use CPS, functions doesn't become 'asynchronous'. They just provide their results in callbacks.
 
-\#bind
------
-Works like `Function.prototype.bind` except it returns function which passes results in the callback.
+Consider this example:
 
 ```javascript
 var cps = require('continuate');
 
 function add(a, b) { return a + b; }
 
-var increment = cps(add).bind(null, 1);
-increment(42, function (err, data) {
+var cpsAdd = cps(add);
+cpsAdd(1, 42, function (err, data) {
   console.assert(data === 43);
 });
 ```
 
-It also works with methods as original `Function.prototype.bind`
+Since it only returns new function it can be also used with methods. Simple `Function.prototype.bind` helps:
 
 ```javascript
 var cps = require('continuate');
@@ -104,36 +101,8 @@ var object = {
   add: function (x) { return this.count += x; }
 }
 
-var cps_add = cps(object.add).bind(object);
-cps_add(1, function (err, res) {
+var cpsAdd = cps(object.add).bind(object);
+cpsAdd(1, function (err, res) {
   console.assert(res === 1);
-});
-```
-
-\#apply
-------
-Similar to `Function.prototype.apply` - applies array as arguments to the function. Callback should be the last element of array. Also works with methods.
-
-```javascript
-var cps = require('continuate');
-
-function add(a, b) { return a + b; }
-
-cps(add).apply(null, [1, 42, function (err, data) {
-  console.assert(data === 43);
-}]);
-```
-
-\#call
-------
-Similar to `Function.prototype.call` - calls function with provided arguments. Also works with methods.
-
-```javascript
-var cps = require('continuate');
-
-function add(a, b) { return a + b; }
-
-cps(add).call(null, 1, 42, function (err, data) {
-  console.assert(data === 43);
 });
 ```

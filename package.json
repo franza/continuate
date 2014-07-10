@@ -1,10 +1,10 @@
 {
   "name": "continuate",
-  "version": "0.0.1",
-  "description": "A wrapper to convert regular functions to continuation-passing style.",
+  "version": "0.6.1",
+  "description": "A wrapper to convert regular functions to continuation-passing style",
   "main": "index.js",
   "scripts": {
-    "test": "???"
+    "test": "node_modules/mocha/bin/mocha test"
   },
   "repository": {
     "type": "git",
@@ -12,7 +12,7 @@
   },
   "keywords": [
     "CSP",
-    "continuation-passing",
+    "continuation-passing style",
     "style",
     "async",
     "callback"
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/franza/continuate",
   "devDependencies": {
-    "mocha": "^1.20.1"
+    "mocha": "^1.20.1",
+    "should": "^4.0.4"
   }
 }
