@@ -1,4 +1,11 @@
 language: node_js
 node_js:
-  - "0.11"
-  - "0.10"
+- '0.11'
+- '0.10'
+deploy:
+  provider: npm
+  email: nico.franza@gmail.com
+  api_key:
+    secure: b0B3fGwoqtXw5b6S17+GKcLMdbVCWLJfAoBTtdEjC7TmERE6pkaXafZJyVCwuFz5YwQ2ylmk7VNS7PhA+4G5LycaGayXFoFK8965DfVPPUYb2h5EDir94llKQ52Ws0allADsnCL3gAgndL/tneyZCyyLBczVQhI66YDOo9qMx6A=
+  # on:
+  #   tags: true
