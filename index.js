@@ -1,5 +1,5 @@
 /**
- * Wraps input function and provides method to work with this function in CSP manner
+ * Wraps input function and provides method to work with this function in CPS manner
  * @param {Function} func
  */
 Continuate = function (func) {

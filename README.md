@@ -45,13 +45,13 @@ async.auto({
 });
 ```
 
-Here we can see that code is not DRY and looks pretty ugly. We can rewrite those handler in continuation-passing style (CSP) right away but imaging situation when you need those handlers as a regular functions, say in synchronous code. You will not want additional callback level in your neat synchronous code.
+Here we can see that code is not DRY and looks pretty ugly. We can rewrite those handler in continuation-passing style (CPS) right away but imaging situation when you need those handlers as a regular functions, say in synchronous code. You will not want additional callback level in your neat synchronous code.
 
-Instead we can rewrite handling of data in prettier way using `continuate` module. It contains a bunch of utility functions you can use to easily convert regualr functions to CSP:
+Instead we can rewrite handling of data in prettier way using `continuate` module. It contains a bunch of utility functions you can use to easily convert regualr functions to CPS:
 
 ```javascript
 var async = require('async');
-var csp = require('continuate');
+var cps = require('continuate');
 
 //...
 
@@ -63,32 +63,32 @@ async.auto({
     getDataFromWebService(callback);
   }],
   'actionsWithData1': ['dataSource1', function (callback, results) {
-    var cspStyle_handleData1 = cps(handleData1).bind();
+    var cpsStyle_handleData1 = cps(handleData1).bind();
     //Now it provides error and result in the callback
-    cspStyle_handleData1(results.dataSource1, callback);
+    cpsStyle_handleData1(results.dataSource1, callback);
   }],
   'actionsWithData2': ['dataSource2', function (callback, results) {
-    //You can call handleData2 in CSP right away without creating new functions
+    //You can call handleData2 in CPS right away without creating new functions
     cps(handleData2).call(null, results.dataSource2, callback);
   }],
 });
 
 ```
 
-And we have neat and descriptive logic without changing original `handleData1` and `handleData2` functions so we can reuse them in regular and CSP-code.
+And we have neat and descriptive logic without changing original `handleData1` and `handleData2` functions so we can reuse them in regular and CPS-code.
 
-Note, that when you use CSP, functions doesn't become 'asynchronous'. They just provide their results in callbacks.
+Note, that when you use CPS, functions doesn't become 'asynchronous'. They just provide their results in callbacks.
 
 \#bind
 -----
 Works like `Function.prototype.bind` except it returns function which passes results in the callback.
 
 ```javascript
-var csp = require('continuate');
+var cps = require('continuate');
 
 function add(a, b) { return a + b; }
 
-var increment = csp(add).bind(null, 1);
+var increment = cps(add).bind(null, 1);
 increment(42, function (err, data) {
   console.assert(data === 43);
 });
@@ -97,15 +97,15 @@ increment(42, function (err, data) {
 It also works with methods as original `Function.prototype.bind`
 
 ```javascript
-var csp = require('continuate');
+var cps = require('continuate');
 
 var object = {
   counter: 0,
   add: function (x) { return this.count += x; }
 }
 
-var csp_add = csp(object.add).bind(object);
-csp_add(1, function (err, res) {
+var cps_add = cps(object.add).bind(object);
+cps_add(1, function (err, res) {
   console.assert(res === 1);
 });
 ```
@@ -115,11 +115,11 @@ csp_add(1, function (err, res) {
 Similar to `Function.prototype.apply` - applies array as arguments to the function. Callback should be the last element of array. Also works with methods.
 
 ```javascript
-var csp = require('continuate');
+var cps = require('continuate');
 
 function add(a, b) { return a + b; }
 
-csp(add).apply(null, [1, 42, function (err, data) {
+cps(add).apply(null, [1, 42, function (err, data) {
   console.assert(data === 43);
 }]);
 ```
@@ -129,11 +129,11 @@ csp(add).apply(null, [1, 42, function (err, data) {
 Similar to `Function.prototype.call` - calls function with provided arguments. Also works with methods.
 
 ```javascript
-var csp = require('continuate');
+var cps = require('continuate');
 
 function add(a, b) { return a + b; }
 
-csp(add).call(null, 1, 42, function (err, data) {
+cps(add).call(null, 1, 42, function (err, data) {
   console.assert(data === 43);
 });
 ```
