@@ -3,6 +3,20 @@ continuate
 
 A wrapper to convert regular functions to continuation-passing style.
 
+Usage
+-----
+
+```javascript
+var cps = require('continuate');
+
+function add(a, b) { return a + b; }
+
+var cpsAdd = cps(add);
+cpsAdd(1, 42, function (err, data) {
+  console.assert(data === 43);
+});
+```
+
 Description
 -----------
 
