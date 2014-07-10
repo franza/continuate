@@ -1,2 +1,6 @@
-before_script: "npm i"
-script: "npm test"
+language: node_js
+node_js:
+  - "0.11"
+  - "0.10"
+  - "0.8"
+  - "0.6"
