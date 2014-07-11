@@ -11,7 +11,7 @@
     "url": "https://github.com/franza/continuate"
   },
   "keywords": [
-    "CSP",
+    "CPS",
     "continuation-passing style",
     "style",
     "async",
