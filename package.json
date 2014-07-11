@@ -1,6 +1,6 @@
 {
   "name": "continuate",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "A wrapper to convert regular functions to continuation-passing style",
   "main": "index.js",
   "scripts": {

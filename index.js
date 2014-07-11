@@ -2,7 +2,7 @@
  * Returns function that provides results of fun in continuation-passing style
  * @param fun
  */
-function csp(fun) {
+function cps(fun) {
   /*
    * @param {...*} args
    * @param {Function} callback
@@ -21,4 +21,4 @@ function csp(fun) {
   }
 }
 
-module.exports = csp;
+module.exports = cps;
