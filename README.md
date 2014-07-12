@@ -9,13 +9,25 @@ Usage
 -----
 
 ```javascript
+//regular divide function which throws error if second arg is 0
+function divide(a, b) {
+  if (b === 0) {
+    throw Error('b is 0');
+  }
+  return a / b;
+}
+
 var cps = require('continuate');
 
-function add(a, b) { return a + b; }
+var cpsDivide = cps(divide);
 
-var cpsAdd = cps(add);
-cpsAdd(1, 42, function (err, data) {
-  console.assert(data === 43);
+cpsDivide(46, 2, function (err, data) {
+  console.assert(data === 23);
+});
+
+//it provides error to callback
+cpsDivide(1, 0, function (err, data) {
+  console.assert(err === true);
 });
 ```
 
@@ -63,7 +75,7 @@ async.auto({
 
 Here we can see that code is not DRY and looks pretty ugly. We can rewrite those handler in continuation-passing style (CPS) right away but imaging situation when you need those handlers as a regular functions, say in synchronous code. You will not want additional callback level in your neat synchronous code.
 
-Instead we can rewrite handling of data in prettier way using `continuate` module. It contains a bunch of utility functions you can use to easily convert regualr functions to CPS:
+Instead we can rewrite handling of data in prettier way using `continuate` module. It is an utility you can use to easily convert regualr functions to CPS:
 
 ```javascript
 var async = require('async');
