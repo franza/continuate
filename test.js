@@ -40,10 +40,14 @@ describe('cps', function () {
     });
   });
 
+  it('should fail if no callback provided in last argument', function () {
+    cps(divide).bind(4, 2).should.throw();
+  });
+
   it('should properly handle default arguments', function () {
     cps(sayHello)(function (err, res) {
       res.should.eql(sayHello());
     });
   });
 
-})
+});
