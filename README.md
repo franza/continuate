@@ -129,7 +129,7 @@ var object = {
   add: function (x) { return this.count += x; }
 }
 
-var cpsAdd = cps(object.add).bind(object);
+var cpsAdd = cps(object.add.bind(object));
 cpsAdd(1, function (err, res) {
   console.assert(res === 1);
 });
