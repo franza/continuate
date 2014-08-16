@@ -3,7 +3,7 @@
  * @param fun
  */
 module.exports = function (fun) {
-  /*
+  /**
    * @param {...*} args
    * @param {Function} callback
    */
