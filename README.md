@@ -104,7 +104,7 @@ async.auto({
 
 And we have neat and descriptive logic without changing original `handleData1` and `handleData2` functions so we can reuse them in regular and CPS-code.
 
-Note, that when you use CPS, functions doesn't become 'asynchronous'. They just provide their results in callbacks.
+**Note, that when you use CPS, functions doesn't become 'asynchronous'. They just provide their results in callbacks.**
 
 Consider this example:
 
