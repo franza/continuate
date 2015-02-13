@@ -1,8 +1,9 @@
 /**
  * Returns function that provides results of fun in continuation-passing style
  * @param fun
+ * @returns {Function}
  */
-module.exports = function (fun) {
+function cps(fun) {
   /**
    * @param {...*} args
    * @param {Function} callback
@@ -19,4 +20,6 @@ module.exports = function (fun) {
     }
     callback(null, result);
   }
-};
+}
+
+module.exports = cps;
